@@ -60,6 +60,8 @@ public class Main {
 			newPassword = this.addSpecial(newPassword);
 		
 		System.out.println(id + ": " + newPassword);
+		FileSystem fs = new FileSystem();
+		fs.write("C:\\Users\\User\\Documents\\password.txt", System.getProperty("line.separator") + id + ": " + newPassword);
 	}
 	
 	
