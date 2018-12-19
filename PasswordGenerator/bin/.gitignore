@@ -1,3 +1,7 @@
 /Main.class
 /Main$ModResult.class
 /FileSystem.class
+/RequestProcessor.class
+/RetrievalProcessor.class
+/GenerationProcessor.class
+/RequestProcessorFactory.class
