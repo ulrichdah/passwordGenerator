@@ -24,23 +24,38 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Password identifier:");
-		String id = scan.nextLine();
-		
-		System.out.println("Use special characters ?(y/n)");
-		String res = scan.nextLine();
-		boolean useSpecialChar = (res.equals("Y") || res.equals("y"));
-		int minLimit = useSpecialChar ? 4 : 3;
-		
-		int limitInt;
+		boolean stop = false;
 		do {
-			System.out.println("Limit for characters (must be more than " + minLimit + "):");
-			String limit = scan.nextLine();
-			limitInt = Integer.parseInt(limit);
-		}while(limitInt < minLimit);
-		
-		Main generator = new Main();
-		generator.addedLimitedPassword(limitInt, useSpecialChar, minLimit, id);
+			System.out.println("Select the operation:");
+			System.out.println("1. Retrieve password");
+			System.out.println("2. Generate password");
+			String mode = scan.nextLine();
+			
+			if (mode.equals("2")) {
+			
+				System.out.println("Password identifier:");
+				String id = scan.nextLine();
+				
+				System.out.println("Use special characters ?(y/n)");
+				String res = scan.nextLine();
+				boolean useSpecialChar = (res.equals("Y") || res.equals("y"));
+				int minLimit = useSpecialChar ? 4 : 3;
+				
+				int limitInt;
+				do {
+					System.out.println("Limit for characters (must be more than " + minLimit + "):");
+					String limit = scan.nextLine();
+					limitInt = Integer.parseInt(limit);
+				}while(limitInt < minLimit);
+				
+				Main generator = new Main();
+				generator.addedLimitedPassword(limitInt, useSpecialChar, minLimit, id);
+			}
+			
+			System.out.println("Do you want to stop the application ?(y/n)");
+			String res = scan.nextLine();
+			stop = (res.equals("Y") || res.equals("y"));
+		} while(!stop);
 	}
 	
 	
