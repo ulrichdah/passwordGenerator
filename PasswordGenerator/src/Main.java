@@ -11,10 +11,14 @@ public class Main {
 	static final int END_LOWER = 122;
 	static final int START_NUMBERS = 48;
 	static final int END_NUMBERS = 57;
+	static final int START_SPECIALS = 32;
+	static final int END_SPECIALS = 47;
 	static final int MOD_VALUE_NO_SPECIAL_CHAR = 3;
 	static final int USE_UPPER = 0;
 	static final int USE_LOWER = 1;
 	static final int USE_NUMBER = 2;
+	static final int USE_SPECIAL = 3;
+	
 
 	
 	public static void main(String[] args) {
@@ -25,7 +29,7 @@ public class Main {
 		
 		System.out.println("Use special characters ?(y/n)");
 		String res = scan.nextLine();
-		boolean useSpecialChar = (res == "Y" || res == "y");
+		boolean useSpecialChar = (res.equals("Y") || res.equals("y"));
 		int minLimit = useSpecialChar ? 4 : 3;
 		
 		int limitInt;
@@ -36,25 +40,26 @@ public class Main {
 		}while(limitInt < minLimit);
 		
 		Main generator = new Main();
-		generator.addedLimitedPassword(limitInt, useSpecialChar, minLimit);
+		generator.addedLimitedPassword(limitInt, useSpecialChar, minLimit, id);
 	}
 	
 	
-	public void addedLimitedPassword(int limit, boolean useSpecialChar, int minLimit) {
+	public void addedLimitedPassword(int limit, boolean useSpecialChar, int minLimit, String id) {
 		int numberOfChar = (limit <= MIN_CHAR) ? limit : this.getRandomInt(MIN_CHAR, limit);
 		String newPassword = new String();
 		for (int i = 0; i < numberOfChar - minLimit; i++) {
-			if(!useSpecialChar) {
-				int reference = this.getRandomInt(MOD_VALUE_NO_SPECIAL_CHAR, MOD_VALUE_NO_SPECIAL_CHAR * 10000);
-				newPassword = this.addChar(reference % MOD_VALUE_NO_SPECIAL_CHAR, newPassword);
-			}
+			int reference = this.getRandomInt(MOD_VALUE_NO_SPECIAL_CHAR, MOD_VALUE_NO_SPECIAL_CHAR * 10000);
+			newPassword = (useSpecialChar) ? this.addChar(reference % MOD_VALUE_NO_SPECIAL_CHAR + 1, newPassword) :
+				this.addChar(reference % MOD_VALUE_NO_SPECIAL_CHAR, newPassword);
 		}
 		
-		this.addLower(newPassword);
-		this.addUpper(newPassword);
-		this.addNumber(newPassword);
+		newPassword = this.addLower(newPassword);
+		newPassword = this.addUpper(newPassword);
+		newPassword = this.addNumber(newPassword);
+		if(useSpecialChar)
+			newPassword = this.addSpecial(newPassword);
 		
-		System.out.println(newPassword + "   BOUM");
+		System.out.println(id + ": " + newPassword);
 	}
 	
 	
@@ -75,6 +80,9 @@ public class Main {
 		case USE_NUMBER:
 			newPassword = this.addNumber(newPassword);
 			break;
+		case USE_SPECIAL:
+			newPassword = this.addSpecial(newPassword);
+			break;
 		}
 		return newPassword;
 	}
@@ -92,6 +100,10 @@ public class Main {
 	
 	private String addNumber(String newPassword) {
 		return newPassword + (char)this.getRandomInt(START_NUMBERS, END_NUMBERS);
+	}
+	
+	private String addSpecial(String newPassword) {
+		return newPassword + (char)this.getRandomInt(START_SPECIALS, END_SPECIALS);
 	}
 
 }
