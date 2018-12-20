@@ -15,6 +15,13 @@ public class Main {
 			System.out.println("2. Generate password");
 			int mode = Integer.parseInt(scan.nextLine());
 			
+			RequestProcessorFactory processorFactory = new RequestProcessorFactory();
+			RequestProcessor processor;
+			try {
+				processor = processorFactory.createRequestProcessor(mode);
+				processor.process();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			
 			System.out.println("\nDo you want to stop the application ?(y/n)");
