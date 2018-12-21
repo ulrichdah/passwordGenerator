@@ -8,6 +8,9 @@ public class RequestProcessorFactory {
 		
 		case 2:
 			return new GenerationProcessor();
+			
+		case 3:
+			return new DeletionProcessor();
 		
 		default:
 			throw new Exception("This option do not exist");
