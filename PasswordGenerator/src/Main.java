@@ -13,18 +13,23 @@ public class Main {
 			System.out.println("Select the operation:");
 			System.out.println("1. Retrieve password");
 			System.out.println("2. Generate password");
-			int mode = Integer.parseInt(scan.nextLine());
-			
-			RequestProcessorFactory processorFactory = new RequestProcessorFactory();
-			RequestProcessor processor;
+			System.out.println("3. Delete existing password");
 			try {
-				processor = processorFactory.createRequestProcessor(mode);
-				processor.process();
-			} catch (Exception e) {
-				e.printStackTrace();
+				int mode = Integer.parseInt(scan.nextLine());
+				
+				RequestProcessorFactory processorFactory = new RequestProcessorFactory();
+				RequestProcessor processor;
+				try {
+					processor = processorFactory.createRequestProcessor(mode);
+					processor.process();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} catch(NumberFormatException e) {
+				System.out.println(":( You have to enter a number!");
 			}
 			
-			System.out.println("\nDo you want to stop the application ?(y/n)");
+			System.out.println("\n:( Leaving ?(y/n)");
 			String res = scan.nextLine();
 			stop = (res.equals("Y") || res.equals("y"));
 		} while(!stop);
