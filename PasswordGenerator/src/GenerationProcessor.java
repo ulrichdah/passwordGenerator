@@ -40,7 +40,7 @@ public class GenerationProcessor extends RequestProcessor{
 	}
 	
 	
-	public void addedLimitedPassword(int limit, boolean useSpecialChar, int minLimit, String id) {
+	private void addedLimitedPassword(int limit, boolean useSpecialChar, int minLimit, String id) {
 		int numberOfChar = (limit <= MIN_CHAR) ? limit : this.getRandomInt(MIN_CHAR, limit);
 		String newPassword = new String();
 		for (int i = 0; i < numberOfChar - minLimit; i++) {
@@ -55,8 +55,8 @@ public class GenerationProcessor extends RequestProcessor{
 		if(useSpecialChar)
 			newPassword = this.addSpecial(newPassword);
 		
-		System.out.println(id + ": " + newPassword);
-		this.fs.write(FILENAME, System.getProperty("line.separator") + id + ": " + newPassword);
+		System.out.println(id + ": " + newPassword + "  size = " + newPassword.length());
+		this.fs.append(FILENAME, id + ": " + newPassword);
 	}
 	
 	

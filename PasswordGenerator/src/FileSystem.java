@@ -3,20 +3,21 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FileSystem {
 
-	public void write(String fileName, String content) {
+	public void append(String fileName, String content) {
 		
 		FileWriter fw = null;
 
 		try {
 			
 			fw = new FileWriter(fileName, true);
-			fw.append(content);
-			System.out.println("Done");
+			fw.append(System.getProperty("line.separator") + content);
 		} catch (IOException e) {
 			
 			e.printStackTrace();
