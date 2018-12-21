@@ -35,7 +35,24 @@ public class FileSystem {
 	}
 	
 	
-	public Map<String, String> readToMap(String fileName) {
+	public void write(List<String> lines, String fileName) {
+		
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(fileName);
+			fw.write(lines.get(0));
+			fw.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		for(int i = 1; i < lines.size(); i++) {
+			this.append(fileName, lines.get(i));
+		}
+	}
+	
+	
+	public Map<String, String> readPasswords(String fileName) {
 		
 		Map<String, String> passwords = new HashMap<String, String>();
 		File file = new File(fileName);
