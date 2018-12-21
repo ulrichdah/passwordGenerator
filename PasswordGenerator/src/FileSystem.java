@@ -55,6 +55,19 @@ public class FileSystem {
 	public Map<String, String> readPasswords(String fileName) {
 		
 		Map<String, String> passwords = new HashMap<String, String>();
+		List<String> lines = this.readToArray(fileName);
+		
+		for(int i = 0; i < lines.size(); i++) {
+			String[] lineParts = lines.get(i).split(": ");
+            passwords.put(lineParts[0], lineParts[1]);
+		}
+		return passwords;
+	}
+	
+	
+	public List<String> readToArray(String fileName) {
+		
+		List<String> lines = new ArrayList<String>();
 		File file = new File(fileName);
 		BufferedReader b;
 
@@ -62,13 +75,12 @@ public class FileSystem {
 			b = new BufferedReader(new FileReader(file));
             String readLine = "";
             while ((readLine = b.readLine()) != null) {
-                String[] lineParts = readLine.split(": ");
-                passwords.put(lineParts[0], lineParts[1]);
+                lines.add(readLine);
             }
             b.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-		return passwords;
+		return lines;
 	}
 }
