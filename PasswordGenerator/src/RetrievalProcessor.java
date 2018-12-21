@@ -9,7 +9,7 @@ public class RetrievalProcessor extends RequestProcessor{
 		String id = scan.nextLine();
 		String password = this.getPassword(id, FILENAME);
 		if (password != null)
-			System.out.println("Here is your password: " + password);
+			System.out.println("Here is your password: " + password + "  size = " + password.length());
 		else
 			System.out.println("There is no password with the identifier: " + id);
 	}
@@ -17,7 +17,7 @@ public class RetrievalProcessor extends RequestProcessor{
 	
 	private String getPassword(String id, String fileName) {
 		
-		Map<String, String> passwords = this.fs.readToMap(fileName);
+		Map<String, String> passwords = this.fs.readPasswords(fileName);
 		if (passwords.containsKey(id))
 			return passwords.get(id);
 		return null;
